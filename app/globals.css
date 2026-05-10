@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* FIX 1: Use a single, intentional font.
+   Add this to your <head> or layout.tsx:
+   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;900&display=swap" rel="stylesheet" />
+*/
+
 :root {
   --background: #f4f4f5;
   --foreground: #18181b;
@@ -12,17 +17,21 @@
   --green: #16a34a;
   --red: #dc2626;
 
+  /* FIX 2: --shadow is now actually used (see cards below) */
   --shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
     0 4px 12px rgba(0, 0, 0, 0.04);
+
+  --font: "DM Sans", system-ui, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: monospace;
+  /* FIX 1: Font declared once here, not repeated on body */
+  --font-sans: var(--font);
+  --font-mono: "DM Mono", ui-monospace, monospace;
 }
 
 * {
@@ -40,8 +49,7 @@ body {
   background: var(--background);
   color: var(--foreground);
 
-  font-family: Arial, Helvetica, sans-serif;
-
+  /* FIX 1: Removed duplicate font-family declaration — handled by @theme inline */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -57,7 +65,63 @@ select {
   font: inherit;
 }
 
+/* FIX 2: Apply --shadow to cards so the variable is actually used */
+.rounded-3xl.border {
+  box-shadow: var(--shadow);
+}
+
+/* FIX 3: Hide spinners in both webkit and Firefox */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-  opacity: 1;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* FIX 4: Print styles for window.print() PDF export */
+@media print {
+  /* Hide interactive and navigational elements */
+  button,
+  input[type="number"] {
+    display: none !important;
+  }
+
+  /* Show expense names as plain text instead of inputs */
+  input[type="text"] {
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    pointer-events: none;
+  }
+
+  /* Clean up backgrounds and shadows for print */
+  * {
+    box-shadow: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 11pt;
+  }
+
+  .rounded-3xl {
+    border-radius: 0 !important;
+    border: 1px solid #ccc !important;
+  }
+
+  /* Avoid page breaks inside cards */
+  .bg-white {
+    break-inside: avoid;
+  }
+
+  /* Stack columns vertically on print */
+  .lg\:grid-cols-4,
+  .lg\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
 }
