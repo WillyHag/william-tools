@@ -761,6 +761,29 @@ export default function BudgetPage() {
               />
             </div>
 
+            {/* 💡 FINANCIAL HEALTH SCORE - DOPAMIN RUSH! */}
+<div className="rounded-2xl border border-indigo-500/20 bg-gradient-to-br from-indigo-950/40 to-purple-950/40 p-6">
+  <div className="mb-4 flex items-center justify-between">
+    <h3 className="text-lg font-semibold text-slate-100">💪 Financial Health</h3>
+    <div className="text-3xl font-bold" style={{ color: savingsRate >= 20 ? "#10b981" : savingsRate >= 10 ? "#f59e0b" : "#ef4444" }}>
+      {Math.min(100, Math.round((savingsRate >= 20 ? 40 : savingsRate * 2) + (data.savingsGoals.filter(g => g.saved >= g.target).length * 20) + (totalExpenses > 0 && totalExpenses < data.monthlyIncome * 0.7 ? 30 : 0)))}/100
+    </div>
+  </div>
+  <div className="h-3 overflow-hidden rounded-full bg-slate-800">
+    <div 
+      className="h-full transition-all duration-1000 ease-out" 
+      style={{ 
+        width: `${Math.min(100, Math.round((savingsRate >= 20 ? 40 : savingsRate * 2) + (data.savingsGoals.filter(g => g.saved >= g.target).length * 20) + (totalExpenses > 0 && totalExpenses < data.monthlyIncome * 0.7 ? 30 : 0)))}%`,
+        background: savingsRate >= 20 ? "linear-gradient(90deg, #10b981, #059669)" : savingsRate >= 10 ? "linear-gradient(90deg, #f59e0b, #d97706)" : "linear-gradient(90deg, #ef4444, #dc2626)"
+      }}
+    />
+  </div>
+  <div className="mt-3 flex gap-2 text-xs text-slate-400">
+    <span>✓ Sparerate: {savingsRate.toFixed(0)}%</span>
+    <span>✓ Mål: {data.savingsGoals.filter(g => g.saved >= g.target).length}/{data.savingsGoals.length}</span>
+  </div>
+</div>
+
             {/* Chart + legend */}
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-5">
               <div className="flex flex-col items-center justify-center rounded-2xl border border-slate-700/50 bg-slate-800/30 p-6 lg:col-span-2">
