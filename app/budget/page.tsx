@@ -192,6 +192,17 @@ function DonutChart({ slices, size = 200 }: { slices: DonutSlice[]; size?: numbe
   );
 }
 
+// ─── SVG Trends Chart ────────────────────────────────────────────
+interface TrendsDataPoint { month: string; amount: number; }
+
+function TrendsChart({ data, width = 500, height = 200 }: { data: TrendsDataPoint[]; width?: number; height?: number }) {
+    if (!data || data.length === 0) return <div className="text-slate-500 text-sm">Ingen trenddata</div>;
+    const [hovered, setHovered] = useState<number | null>(null);
+    const maxAmount = Math.max(...data.map(d => d.amount)); const padding = 40; const chartHeight = height - padding * 2; const chartWidth = width - padding * 2; const xStep = chartWidth / (data.length - 1); const points = data.map((d, i) => ({ x: padding + i * xStep, y: padding + chartHeight - (d.amount / maxAmount) * chartHeight }));
+    const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' '); const areaPath = `${linePath} L ${points[points.length - 1].x} ${height - padding} L ${padding} ${height - padding} Z`;
+    return (<svg width={width} height={height} className="overflow-visible"><path d={areaPath} fill="url(#trendGrad)" opacity="0.2" /><path d={linePath} fill="none" stroke="#6366f1" strokeWidth="2" />{points.map((p, i) => (<circle key={i} cx={p.x} cy={p.y} r="4" fill="#6366f1" onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)} className="transition cursor-pointer" />))}{hovered !== null && (<g><rect x={points[hovered].x - 50} y={points[hovered].y - 45} width="100" height="35" rx="6" fill="#1e293b" stroke="#475569" /><text x={points[hovered].x} y={points[hovered].y - 28} textAnchor="middle" fill="#f1f5f9" fontSize="11" fontWeight="600">{data[hovered].month}</text><text x={points[hovered].x} y={points[hovered].y - 15} textAnchor="middle" fill="#6366f1" fontSize="12" fontWeight="700">{formatKr(data[hovered].amount)}</text></g>)}<defs><linearGradient id="trendGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stopColor="#6366f1" /><stop offset="100%" stopColor="#6366f1" stopOpacity="0" /></linearGradient></defs></svg>);
+  }
+
 // ─── Modal ─────────────────────────────────────────────────────────────────────
 
 interface ModalProps {
@@ -823,6 +834,12 @@ export default function BudgetPage() {
                     </div>
                   ))}
                 </div>
+
+                          {/* Trends Chart */}
+          <div className="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-6 lg:col-span-3">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">SPENDING TRENDS</h2>
+            <TrendsChart data={generateTrendsData(totalExpenses)} width={600} height={200} />
+          </div>
               </div>
             </div>
 
