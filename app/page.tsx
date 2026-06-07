@@ -41,6 +41,25 @@ export default function HomePage() {
             </div>
           </a>
 
+          
+        {/* Porteføljestyring */}
+        <a
+          href="/portfolio"
+          className="group relative bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-600 rounded-2xl p-6 transition-all duration-200 hover:shadow-xl hover:shadow-zinc-950/50 hover:-translate-y-0.5"
+        >
+          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center mb-4 text-xl">
+            📊
+          </div>
+          <h3 className="text-lg font-semibold mb-2 group-hover:text-white transition-colors">Porteføljestyring</h3>
+          <p className="text-sm text-zinc-400 leading-relaxed">Oversikt over investeringsporteføljen min med aksjer og fordeling.</p>
+          <div className="mt-4 flex items-center gap-1 text-xs text-zinc-500 group-hover:text-zinc-300 transition-colors">
+            Åpne verktøy
+            <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 517 7-7 7" />
+            </svg>
+          </div>
+        </a>
+
           {/* Placeholder kort */}
           <div className="relative bg-zinc-900/50 border border-zinc-800/50 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center min-h-[180px]">
             <div className="w-10 h-10 rounded-xl bg-zinc-800 flex items-center justify-center mb-3 text-zinc-600 text-xl">＋</div>
