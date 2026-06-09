@@ -64,11 +64,11 @@ const GOAL_ICONS = ["🏠", "🚗", "✈️", "💻", "💍", "🎓", "🏦", "�
 const DEFAULT_DATA: BudgetData = {
   monthlyIncome: 52000,
   expenses: [
-    { id: "1", name: "Husleie", amount: 14500, category: "Bolig", date: "2024-01-01", recurring: true }
+    { id: "1", name: "Husleie", amount: 14500, category: "Bolig", date: "2024-01-01", recurring: true },
     { id: "2", name: "Dagligvarer", amount: 4200, category: "Mat", date: "2024-01-05" },
-    { id: "3", name: "Kollektivt", amount: 850, category: "Transport", date: "2024-01-02", recurring: true }
-    { id: "4", name: "Netflix / Spotify", amount: 350, category: "Abonnementer", date: "2024-01-01", recurring: true }
-    { id: "5", name: "Treningssenter", amount: 499, category: "Helse", date: "2024-01-01", recurring: true }
+    { id: "3", name: "Kollektivt", amount: 850, category: "Transport", date: "2024-01-02", recurring: true },
+    { id: "4", name: "Netflix / Spotify", amount: 350, category: "Abonnementer", date: "2024-01-01", recurring: true },
+    { id: "5", name: "Treningssenter", amount: 499, category: "Helse", date: "2024-01-01", recurring: true },
     { id: "6", name: "Restaurant", amount: 1800, category: "Mat", date: "2024-01-12" },
     { id: "7", name: "Klær", amount: 1200, category: "Klær", date: "2024-01-15" },
     { id: "8", name: "Kino / aktiviteter", amount: 600, category: "Underholdning", date: "2024-01-18" },
