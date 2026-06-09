@@ -839,7 +839,7 @@ export default function BudgetPage() {
                           {/* Trends Chart */}
           <div className="rounded-2xl border border-slate-700/50 bg-slate-800/30 p-6 lg:col-span-3">
             <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">SPENDING TRENDS</h2>
-            <TrendsChart data={generateTrendsData(totalExpenses)} width={600} height={200} />
+            <TrendsChart data={[{month:"Jan",amount:totalExpenses*0.9},{month:"Feb",amount:totalExpenses*0.95},{month:"Mar",amount:totalExpenses*1.05},{month:"Apr",amount:totalExpenses*0.98},{month:"Mai",amount:totalExpenses*1.02},{month:"Jun",amount:totalExpenses}]} width={600} height={200} />
           </div>
               </div>
             </div>
